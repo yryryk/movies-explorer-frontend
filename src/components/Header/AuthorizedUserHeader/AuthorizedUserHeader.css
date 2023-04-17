@@ -1,0 +1,35 @@
+.header-autorized {
+  width: calc(100% - 152px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38;
+  margin-left: 44px;
+}
+
+.header-autorized__link {
+  margin: 0;
+  margin-right: 16px;
+  text-decoration: none;
+  color: #000;
+}
+
+.header-autorized__button-link {
+  background-color: #F9F9F9;
+  border-radius: 20px;
+  min-width: 100px;
+  height: 32px;
+  margin: 0;
+  margin-right: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+}
+
+.header-autorized__link_active {
+  font-weight: 500;
+}

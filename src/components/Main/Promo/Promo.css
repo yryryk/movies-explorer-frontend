@@ -1,0 +1,16 @@
+.promo {
+  margin: 20px 40px 0;
+  box-sizing: border-box;
+  padding: 160px 235px 30px;
+  background-color: #F5F5F5;
+  border-radius: 10px
+}
+
+.promo__title {
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.16;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
