@@ -1,0 +1,44 @@
+.portfolio {
+  padding: 100px 70px 125px;
+}
+
+.portfoljo__title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.11;
+  color: #A0A0A0;
+  margin: 0;
+}
+
+.portfoljo__list {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.portfoljo__list-link {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.67;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 89px;
+}
+
+.portfoljo__list-item:not(:last-child) {
+  border-bottom: 1px solid black;
+}
+
+.portfoljo__list-arrow {
+  background-image: url('../../../images/text__COLOR_font-main.svg');
+  height: 17px;
+  width: 17px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 6px 6px 0 0;
+}
