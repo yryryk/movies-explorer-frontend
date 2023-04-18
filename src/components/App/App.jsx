@@ -8,17 +8,16 @@ import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import AuthorizedUserHeader from '../Header/AuthorizedUserHeader/AuthorizedUserHeader';
 import UnauthorizedUserHeader from '../Header/UnauthorizedUserHeader/UnauthorizedUserHeader';
+import Footer from '../Footer/Footer';
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Header />}>
-
           <Route index element={<UnauthorizedUserHeader />} />
 
           {["movies", "saved-movies", "profile"].map((somePath, i) => (<Route path={somePath} key={i} element={<AuthorizedUserHeader />} />))}
-
         </Route>
 
       </Routes>
@@ -30,6 +29,10 @@ function App() {
         <Route path="/profile" element={<Profile />}/>
         <Route path="/signin" element={<Login />}/>
         <Route path="/signup" element={<Register />}/>
+      </Routes>
+
+      <Routes>
+        {["/", "movies", "saved-movies", "profile"].map((item, i) => (<Route path={item} key={i} element={<Footer />} />))}
       </Routes>
     </>
   );

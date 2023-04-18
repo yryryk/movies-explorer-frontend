@@ -1,5 +1,5 @@
 .portfolio {
-  padding: 100px 70px 125px;
+  padding: 100px 70px 94px;
 }
 
 .portfoljo__title {
@@ -13,7 +13,7 @@
 .portfoljo__list {
   list-style: none;
   padding: 0;
-  margin-top: 30px;
+  margin-top: 32px;
 }
 
 .portfoljo__list-link {
@@ -30,7 +30,7 @@
 }
 
 .portfoljo__list-item:not(:last-child) {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #E8E8E8;
 }
 
 .portfoljo__list-arrow {
@@ -40,5 +40,5 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  margin: 6px 6px 0 0;
+  margin: 4px 6px 0 0;
 }

@@ -3,7 +3,7 @@ import Headline from '../../Headline/Headline';
 
 function AboutProject() {
   return (
-    <section className="about-project">
+    <section className="about-project" id="about">
       <Headline title="О проекте"/>
       <div className="about-project__data">
         <div>
