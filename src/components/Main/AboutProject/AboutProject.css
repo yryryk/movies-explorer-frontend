@@ -2,18 +2,6 @@
   padding: 110px 70px;
 }
 
-.about-project__title {
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 1.23;
-  letter-spacing: -0.04em;
-}
-
-.about-project__line {
-  border-bottom: 1px solid black;
-  margin-top: 23px;
-}
-
 .about-project__data {
   display: flex;
   justify-content: center;
@@ -54,7 +42,6 @@
 }
 
 .about-project__visual-data-block {
-  margin: 0;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
@@ -63,7 +50,6 @@
 }
 
 .about-project__visual-data-text {
-  margin: 0;
   margin-top: 14px;
   font-weight: 500;
   font-size: 14px;

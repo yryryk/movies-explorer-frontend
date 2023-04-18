@@ -1,17 +1,17 @@
 import './AboutProject.css';
+import Headline from '../../Headline/Headline';
 
 function AboutProject() {
   return (
     <section className="about-project">
-      <h className="about-project__title">О проекте</h>
-      <div className="about-project__line"></div>
+      <Headline title="О проекте"/>
       <div className="about-project__data">
         <div>
-          <p className="about-project__data-title">Дипломный проект включал 5 этапов</p>
+          <h3 className="about-project__data-title">Дипломный проект включал 5 этапов</h3>
           <p className="about-project__data-paragraph">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
         </div>
         <div>
-          <p className="about-project__data-title">На выполнение диплома ушло 5 недель</p>
+          <h3 className="about-project__data-title">На выполнение диплома ушло 5 недель</h3>
           <p className="about-project__data-paragraph">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
         </div>
       </div>
