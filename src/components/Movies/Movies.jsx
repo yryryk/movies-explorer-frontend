@@ -1,9 +1,17 @@
 import './Movies.css';
+import Preloader from './Preloader/Preloader';
+import SearchForm from './SearchForm/SearchForm';
+import MoviesCardList from './MoviesCardList/MoviesCardList';
+import MoreMoviesButton from './MoreMoviesButton/MoreMoviesButton';
 
-function Movies() {
+function Movies(props) {
+  const {moviesCardList, handleSelectMovies} = props;
   return (
-    <div className="movies">
-    </div>
+    <main className="movies">
+      <SearchForm />
+      {moviesCardList.length?<MoviesCardList moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />:<Preloader />}
+      {moviesCardList.length>15&&<MoreMoviesButton />}
+    </main>
   );
 }
 
