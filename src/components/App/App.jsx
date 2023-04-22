@@ -10,6 +10,7 @@ import Profile from '../Profile/Profile';
 import AuthorizedUserHeader from '../Header/AuthorizedUserHeader/AuthorizedUserHeader';
 import UnauthorizedUserHeader from '../Header/UnauthorizedUserHeader/UnauthorizedUserHeader';
 import Footer from '../Footer/Footer';
+import NotFound from '../NotFound/NotFound';
 import Picture from '../../images/movie.png';
 import { useState, useEffect } from 'react';
 
@@ -50,11 +51,12 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Main />}/>
-        <Route path="/movies" element={<Movies moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
+        <Route path="/movies" element={<Movies saved={false} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
         <Route path="/saved-movies" element={<SavedMovies component={Movies} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
         <Route path="/profile" element={<Profile />}/>
         <Route path="/signin" element={<Login />}/>
         <Route path="/signup" element={<Register />}/>
+        <Route path="*" element={<NotFound />}/>
       </Routes>
 
       <Routes>

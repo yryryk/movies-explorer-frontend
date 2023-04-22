@@ -5,7 +5,7 @@ function SavedMovies({ component: Component, ...props  }) {
   const selectedMoviesCardList = moviesCardList.filter((movie)=>movie.isSelected)
 
   return (
-    <Component handleSelectMovies={handleSelectMovies} moviesCardList={selectedMoviesCardList}  />
+    <Component saved={true} handleSelectMovies={handleSelectMovies} moviesCardList={selectedMoviesCardList}  />
   );
 }
 

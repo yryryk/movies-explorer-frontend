@@ -47,3 +47,12 @@
 .movies-card__button_active {
   background-color: #2BE080;
 }
+
+.movies-card__button-cross {
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: 0;
+  background-image: url("../../../images/cross.svg");
+  background-color: transparent;
+}
