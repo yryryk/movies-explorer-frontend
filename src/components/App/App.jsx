@@ -16,7 +16,6 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [moviesCardList, setMoviesCardList] = useState([]);
-
   useEffect(() => {
     const arr =[];
     for(let i = 0; i < 3; i++) {
@@ -40,13 +39,13 @@ function App() {
   }
 
   return (
-    <div className="page">
+    <div className="app">
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<UnauthorizedUserHeader />} />
           {["movies", "saved-movies", "profile"].map((somePath, i) => (<Route path={somePath} key={i} element={<AuthorizedUserHeader />} />))}
         </Route>
-
+        <Route path="*" element={<header></header>}></Route>
       </Routes>
 
       <Routes>
@@ -60,7 +59,8 @@ function App() {
       </Routes>
 
       <Routes>
-        {["/", "movies", "saved-movies", "profile"].map((somePath, i) => (<Route path={somePath} key={i} element={<Footer />} />))}
+        {["/", "movies", "saved-movies"].map((somePath, i) => (<Route path={somePath} key={i} element={<Footer />} />))}
+        <Route path="*" element={<footer></footer>}></Route>
       </Routes>
     </div>
   );

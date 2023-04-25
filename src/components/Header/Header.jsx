@@ -1,11 +1,11 @@
 import './Header.css';
 import {Outlet} from 'react-router-dom';
-import Logo from './Logo/Logo';
+import Logo from '../Logo/Logo';
 
 function Header() {
   return (
   <header className="header">
-    <Logo />
+    <Logo className={"header__logo"} />
     <Outlet />
   </header>
   );

@@ -1,30 +1,27 @@
 .header-unautorized {
   display: flex;
   align-items: center;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
   margin-left: auto;
   margin-right: 40px;
 }
 
-.header-unautorized__link_transparent {
+.header-unautorized__link {
   margin: 0;
   margin-right: 30px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
   text-decoration: none;
   color: #000;
 }
 
 .header-unautorized__link_black {
-  background: #000000;
+  background-color: #000000;
   border-radius: 3px;
   color: #fff;
   min-width: 76px;
   height: 32px;
-  margin: 0;
-  margin-right: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none;
 }
