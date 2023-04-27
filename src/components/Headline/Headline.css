@@ -6,7 +6,19 @@
   margin: 0;
 }
 
+@media (max-width: 767px) {
+  .title {
+    font-size: calc(((100vw - 320px) / (768 - 320)) * (22 - 18) + 18px);
+  }
+}
+
 .line {
   border-bottom: 1px solid black;
   margin-top: 23px;
+}
+
+@media (max-width: 767px) {
+  .line {
+    margin-top: calc(((100vw - 320px) / (768 - 320)) * (23 - 28) + 28px);
+  }
 }

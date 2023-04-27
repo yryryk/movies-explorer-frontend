@@ -37,12 +37,12 @@ function Profile() {
         </div>
         {edit&&<>
           <span className="profile__error profile__error_active">При обновлении профиля произошла ошибка.</span>
-          <button aria-label="кнопка сохранить" type="submit" className="profile__submit-button profile__submit-button_not-active">Сохранить</button>
+          <button aria-label="кнопка сохранить" type="submit" className="profile__submit-button profile__submit-button_not-active button">Сохранить</button>
         </>}
       </form>
      {!edit&&<>
-        <button aria-label="кнопка сохранить" type="button" className="profile__edit-button" onClick={handleEdit}>Редактировать</button>
-        <Link to="/" className="profile__link-quit">Выйти из аккаунта</Link>
+        <button aria-label="кнопка сохранить" type="button" className="profile__edit-button button" onClick={handleEdit}>Редактировать</button>
+        <Link to="/" className="profile__link-quit link">Выйти из аккаунта</Link>
       </>}
     </main>
   );

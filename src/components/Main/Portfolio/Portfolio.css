@@ -2,6 +2,18 @@
   padding: 100px 70px 94px;
 }
 
+@media (max-width: 1279px) {
+  .portfolio {
+    padding: calc(((100vw - 768px) / (1280 - 768)) * (100 - 90) + 90px) calc(((100vw - 768px) / (1280 - 768)) * (70 - 50) + 50px) calc(((100vw - 768px) / (1280 - 768)) * (94 - 60) + 60px);
+  }
+}
+
+@media (max-width: 767px) {
+  .portfolio {
+    padding: calc(((100vw - 320px) / (768 - 320)) * (90 - 70) + 70px) calc(((100vw - 320px) / (768 - 320)) * (70 - 14) + 14px);
+  }
+}
+
 .portfoljo__title {
   font-weight: 400;
   font-size: 18px;
@@ -10,10 +22,22 @@
   margin: 0;
 }
 
+@media (max-width: 767px) {
+  .portfoljo__title {
+    font-size: calc(((100vw - 320px) / (768 - 320)) * (18 - 14) + 14px);
+  }
+}
+
 .portfoljo__list {
   list-style: none;
   padding: 0;
   margin-top: 32px;
+}
+
+@media (max-width: 767px) {
+  .portfoljo__list {
+    margin-top: calc(((100vw - 320px) / (768 - 320)) * (32 - 22) + 22px);
+  }
 }
 
 .portfoljo__list-link {
@@ -29,6 +53,19 @@
   height: 89px;
 }
 
+@media (max-width: 1279px) {
+  .portfoljo__list-link {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .portfoljo__list-link {
+    font-size: calc(((100vw - 320px) / (768 - 320)) * (28 - 18) + 18px);
+    height: calc(((100vw - 320px) / (768 - 320)) * (89 - 89) + 67px);
+  }
+}
+
 .portfoljo__list-item:not(:last-child) {
   border-bottom: 1px solid #E8E8E8;
 }
@@ -41,4 +78,11 @@
   background-position: center;
   background-repeat: no-repeat;
   margin: 4px 6px 0 0;
+}
+
+@media (max-width: 767px) {
+  .portfoljo__list-arrow {
+    width: calc(((100vw - 320px) / (768 - 320)) * (17 - 11) + 11px);
+    height: calc(((100vw - 320px) / (768 - 320)) * (17 - 11) + 11px);
+  }
 }

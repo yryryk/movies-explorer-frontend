@@ -3,7 +3,19 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+}
 
+@media (max-width: 1279px) {
+  .nav-tab {
+    margin-top: calc(((100vw - 768px) / (1280 - 768)) * (150 - 314) + 314px);
+  }
+}
+
+@media (max-width: 767px) {
+  .nav-tab {
+    margin-top: calc(((100vw - 320px) / (768 - 320)) * (314 - 212) + 212px);
+    gap: calc(((100vw - 320px) / (768 - 320)) * (10 - 6) + 6px);
+  }
 }
 
 .nav-tab__link {
@@ -20,4 +32,13 @@
   margin: 0;
   text-decoration: none;
   color: #fff;
+}
+
+@media (max-width: 767px) {
+  .nav-tab__link {
+    width: calc(((100vw - 320px) / (768 - 320)) * (96 - 82) + 82px);
+    min-height: calc(((100vw - 320px) / (768 - 320)) * (36 - 26) + 26px);
+    border-radius: calc(((100vw - 320px) / (768 - 320)) * (10 - 6) + 6px);
+    font-size: calc(((100vw - 320px) / (768 - 320)) * (12 - 10) + 10px);
+  }
 }

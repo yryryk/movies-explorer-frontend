@@ -11,7 +11,7 @@ function Portfolio() {
           {link: "https://github.com/yryryk/react-mesto-api-full-gha", name: "Одностраничное приложение"}
         ].map((item, i) => (
           <li key={i} className="portfoljo__list-item">
-            <a href={item.link} target="_blank" rel="noreferrer" className="portfoljo__list-link">
+            <a href={item.link} target="_blank" rel="noreferrer" className="portfoljo__list-link link">
               {item.name}
               <div className="portfoljo__list-arrow"></div>
             </a>

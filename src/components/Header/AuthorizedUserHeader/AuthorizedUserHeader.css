@@ -1,5 +1,5 @@
 .header-autorized {
-  width: calc(100% - 152px);
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,7 +22,6 @@
   min-width: 100px;
   height: 32px;
   margin: 0;
-  margin-right: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
