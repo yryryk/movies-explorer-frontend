@@ -1,15 +1,21 @@
 import './AuthorizedUserHeader.css';
 import { NavLink } from 'react-router-dom';
+import BurgerButton from '../BurgerButton/BurgerButton'
 
 function AuthorizedUserHeader() {
   return (
+    <>
     <nav className="header-autorized">
-      <div>
+      <div className="header-autorized__container" >
+        <NavLink to="/" className= {({isActive}) => `${isActive ? "header-autorized__link header-autorized__link-in-burger header-autorized__link_active link" : "header-autorized__link link header-autorized__link-in-burger"}`}>Главная</NavLink>
         <NavLink to="/movies" className= {({isActive}) => `${isActive ? "header-autorized__link header-autorized__link_active link" : "header-autorized__link link"}`}>Фильмы</NavLink>
         <NavLink to="/saved-movies" className= {({isActive}) => `${isActive ? "header-autorized__link header-autorized__link_active link" : "header-autorized__link link"}`}>Сохранённые фильмы</NavLink>
       </div>
-      <NavLink to="/profile" className= {({isActive}) => `${isActive ? "header-autorized__button-link header-autorized__link_active link" : "header-autorized__button-link link"}`}>Аккаунт</NavLink>
+      <NavLink to="/profile" className= {({isActive}) => `${isActive ? "header-autorized__button-link header-autorized__link-profile_active link" : "header-autorized__button-link link"}`}>Аккаунт</NavLink>
     </nav>
+    <div className="header-autorized__overlay"></div>
+    <BurgerButton width={44} height={44} />
+    </>
   );
 }
 

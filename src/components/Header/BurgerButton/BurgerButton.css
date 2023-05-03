@@ -1,0 +1,15 @@
+.burger-button {
+  display: none;
+  width: 41.5px;
+  justify-content: right;
+  overflow: hidden;
+  z-index: 5;
+  border: none;
+  padding: 0;
+}
+
+@media (max-width: 1023px) {
+  .burger-button {
+    display: flex;
+  }
+}

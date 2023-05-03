@@ -10,7 +10,6 @@ function SearchForm(props) {
         <button aria-label="Поиск" type="button" className="search-form__search-button button" onClick={handleSearch}></button>
       </label>
       <Switcher className="search-form__switcher"><p className="search-form__switcher-name">Короткометражки</p></Switcher>
-      <div className="search-form__line"></div>
     </section>
   );
 }
