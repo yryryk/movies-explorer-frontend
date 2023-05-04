@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 74px);
 }
 
 .not-found__title {
@@ -10,7 +10,7 @@
   font-size: 140px;
   line-height: 1.21;
   margin: 0;
-  margin-top: calc(47.2vh - 1.21*0.5em);
+  margin-top: calc(47.2vh - 74px - 1.21*0.5em);
 }
 
 .not-found__subtitle {
@@ -26,9 +26,26 @@
   font-size: 14px;
   line-height: 1.21px;
   text-align: center;
-  margin: auto 0 60px;
+  margin: 184px 0 60px;
   border: 0;
   background-color: transparent;
   min-width: 42px;
   min-height: 17px;
+}
+
+@media (max-width: 767px) {
+
+  .not-found__title {
+    font-size: 80px;
+  }
+
+  .not-found__subtitle {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .not-found__button {
+    margin: auto 0 30px;
+    font-size: 12px;
+  }
 }

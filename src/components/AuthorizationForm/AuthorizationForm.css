@@ -14,6 +14,7 @@
 }
 
 .auth-form__form {
+  width: 100%;
   margin-top: 40px;
   display: flex;
   flex-direction: column;
@@ -104,4 +105,34 @@
 
 .auth-form__input_active {
   color: #FF4062;
+}
+
+@media (max-width: 1023px) {
+  .auth-form {
+    margin: 158px auto 232px;
+  }
+}
+
+@media (max-width: 767px) {
+  .auth-form {
+    width: 260px;
+    margin: 0 auto 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .auth-form__form {
+    margin-top: 70px;
+  }
+
+  .auth-form__submit-button {
+    font-size: 12px;
+  }
+
+  .auth-form__link-container {
+    margin-top: 12px;
+    gap: 12px;
+    font-size: 12px;
+  }
 }

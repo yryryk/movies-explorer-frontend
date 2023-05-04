@@ -115,3 +115,26 @@
   background-color: #F8F8F8;
   color: #C2C2C2;
 }
+
+@media (max-width: 1023px) {
+  .profile {
+    margin: 0 auto;
+    padding: 236px 0 269px;
+  }
+
+  .profile__form {
+    margin-top: 80px;
+  }
+}
+
+@media (max-width: 767px) {
+  .profile {
+    width: 260px;
+    margin: 0 auto;
+    padding: 70px 0 40px;
+  }
+
+  .profile__form {
+    margin-top: 66px;
+  }
+}

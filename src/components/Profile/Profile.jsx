@@ -36,8 +36,8 @@ function Profile() {
           <input id="profile-email-input" type="email" name="email" className="profile__input" onChange={handleChange} minLength="2" maxLength="40" required />
         </div>
         {edit&&<>
-          <span className="profile__error profile__error_active">При обновлении профиля произошла ошибка.</span>
-          <button aria-label="кнопка сохранить" type="submit" className="profile__submit-button profile__submit-button_not-active button">Сохранить</button>
+          <span className="profile__error">При обновлении профиля произошла ошибка.</span>
+          <button aria-label="кнопка сохранить" type="submit" className="profile__submit-button button">Сохранить</button>
         </>}
       </form>
      {!edit&&<>

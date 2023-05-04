@@ -38,7 +38,7 @@ function Register() {
         <span className="auth-form__error">Что-то пошло не так...</span>
         <label className="auth-form__label" htmlFor="password-input">Пароль</label>
         <input id="password-input" type="password" name="password" className="auth-form__input" onChange={handleChange} minLength="2" maxLength="200" required />
-        <span className="auth-form__error auth-form__error_active">Что-то пошло не так...</span>
+        <span className="auth-form__error">Что-то пошло не так...</span>
       </AuthorizationForm>
     </main>
   );

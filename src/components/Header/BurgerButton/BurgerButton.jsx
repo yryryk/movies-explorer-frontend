@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import ArrData1 from '../../../utils/constants/BurgerButtonArrData1';
 import ArrData2 from '../../../utils/constants/BurgerButtonArrData2';
 
-function BurgerButton({ width, height }) {
+function BurgerButton({ width, height}) {
   const canvasRef = useRef(null);
   const [ctx, setCtx] = useState(null);
   const [imageData, setImageData] = useState(null);
@@ -17,9 +17,7 @@ function BurgerButton({ width, height }) {
   }, []);
 
   useEffect(() => {
-    if(ctx) {
-      setImageData(ctx.getImageData(0, 0, width, height));
-    }
+    ctx&&setImageData(ctx.getImageData(0, 0, width, height));
   }, [ctx, height, width]);
 
   useEffect(() => {
@@ -84,8 +82,8 @@ function BurgerButton({ width, height }) {
 
   return (
     <>
-      <button aria-label="меню" type="button" className="burger-button" >
-        <canvas ref={canvasRef} width={width} height={height} onClick={handleActionClick} />
+      <button aria-label="меню" type="button" className="burger-button" onClick={handleActionClick} >
+        <canvas ref={canvasRef} width={width} height={height} />
       </button>
     </>
   );
