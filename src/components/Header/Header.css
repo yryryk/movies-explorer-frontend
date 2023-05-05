@@ -1,6 +1,9 @@
 .header {
   min-height: 74px;
-  margin: 0 70px;
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 0 70px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
