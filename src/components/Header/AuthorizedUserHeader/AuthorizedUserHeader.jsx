@@ -21,7 +21,7 @@ function AuthorizedUserHeader() {
         <NavLink to="/movies" className= {({isActive}) => `${isActive ? "header-autorized__link header-autorized__link_active link" : "header-autorized__link link"}`} onClick={handleLinkClick} >Фильмы</NavLink>
         <NavLink to="/saved-movies" className= {({isActive}) => `${isActive ? "header-autorized__link header-autorized__link_active link" : "header-autorized__link link"}`} onClick={handleLinkClick} >Сохранённые фильмы</NavLink>
       </div>
-      <NavLink to="/profile" className= {({isActive}) => `${isActive ? "header-autorized__button-link header-autorized-link-profile_active link" : "header-autorized__button-link link"}`} onClick={handleLinkClick} >Аккаунт</NavLink>
+      <NavLink to="/profile" className= {({isActive}) => `${isActive ? "header-autorized__button-link header-autorized__button-link_active link" : "header-autorized__button-link link"}`} onClick={handleLinkClick} >Аккаунт</NavLink>
     </nav>
     <div className="header-autorized-overlay"></div>
     <BurgerButton width={44} height={44} />
