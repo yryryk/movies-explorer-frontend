@@ -37,5 +37,5 @@
 }
 
 .checkbox-input:checked ~ .checkbox-inner {
-  translate: 16px;
+  transform: translateX(16px);
 }

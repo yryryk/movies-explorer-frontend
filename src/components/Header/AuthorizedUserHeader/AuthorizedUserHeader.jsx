@@ -10,9 +10,9 @@ function AuthorizedUserHeader() {
   }, []);
 
   function handleLinkClick() {
-    burgerButton&&burgerButton.click()
+    window.innerWidth<1023&&burgerButton.click()
   }
-  
+
   return (
     <>
     <nav className="header-autorized">

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import ArrData1 from '../../../utils/constants/BurgerButtonArrData1';
 import ArrData2 from '../../../utils/constants/BurgerButtonArrData2';
 
-function BurgerButton({ width, height}) {
+function BurgerButton({ width, height }) {
   const canvasRef = useRef(null);
   const [ctx, setCtx] = useState(null);
   const [imageData, setImageData] = useState(null);
