@@ -9,7 +9,7 @@ function BurgerButton({ width, height }) {
   const [imageData, setImageData] = useState(null);
   const frameRate = 60;
   const headerAutorized = document.querySelector(".header-autorized");
-  const headerOverlay = document.querySelector(".header-autorized__overlay");
+  const headerOverlay = document.querySelector(".header-autorized-overlay");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -64,7 +64,7 @@ function BurgerButton({ width, height }) {
     if(!on) {
       setTimeout(()=> {
         headerAutorized.classList.add("header-autorized_active");
-        headerOverlay.classList.add("header-autorized__overlay_active");
+        headerOverlay.classList.add("header-autorized-overlay_active");
         action = true;
         on = true;
         actionDraw(data, frameRate, ArrData2);
@@ -72,7 +72,7 @@ function BurgerButton({ width, height }) {
     }else{
       setTimeout(()=> {
         headerAutorized.classList.remove("header-autorized_active");
-        headerOverlay.classList.remove("header-autorized__overlay_active");
+        headerOverlay.classList.remove("header-autorized-overlay_active");
         action = true;
         on = false;
         actionDraw(data, frameRate, ArrData1);

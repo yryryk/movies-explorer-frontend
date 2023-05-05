@@ -23,7 +23,7 @@ function AuthorizedUserHeader() {
       </div>
       <NavLink to="/profile" className= {({isActive}) => `${isActive ? "header-autorized__button-link header-autorized__link-profile_active link" : "header-autorized__button-link link"}`} onClick={handleLinkClick} >Аккаунт</NavLink>
     </nav>
-    <div className="header-autorized__overlay"></div>
+    <div className="header-autorized-overlay"></div>
     <BurgerButton width={44} height={44} />
     </>
   );
