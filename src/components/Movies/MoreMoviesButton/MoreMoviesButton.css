@@ -13,4 +13,9 @@
   line-height: 15px;
   text-align: center;
   padding: 0;
+  visibility: visible;
+}
+
+.more-button__button_not-active {
+  visibility: hidden;
 }
