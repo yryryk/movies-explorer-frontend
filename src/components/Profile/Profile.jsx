@@ -29,11 +29,11 @@ function Profile() {
       <form className="profile__form" name="profile" onSubmit={handleSubmit}>
         <div className="profile__container">
           <label className="profile__label" htmlFor="profile-name-input">Имя</label>
-          <input id="profile-name-input" type="text" name="name" className="profile__input" onChange={handleChange} minLength="2" maxLength="40" required />
+          <input id="profile-name-input" type="text" name="name" className="profile__input" onChange={handleChange} minLength="2" maxLength="40" value={"Виталий"} required={edit?true:false} readOnly={!edit?true:false} />
         </div>
         <div className="profile__container">
           <label className="profile__label" htmlFor="profile-email-input">E-mail</label>
-          <input id="profile-email-input" type="email" name="email" className="profile__input" onChange={handleChange} minLength="2" maxLength="40" required />
+          <input id="profile-email-input" type="email" name="email" className="profile__input" onChange={handleChange} minLength="2" maxLength="40" value={"pochta@yandex.ru"} required={edit?true:false} readOnly={!edit?true:false} />
         </div>
         {edit&&<>
           <span className="profile__error">При обновлении профиля произошла ошибка.</span>
