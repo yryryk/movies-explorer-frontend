@@ -1,0 +1,128 @@
+.header-autorized {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38;
+  margin-left: 44px;
+}
+
+.header-autorized-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: calc(100vw - 520px);
+  z-index: 3;
+  background-color: #000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 1s ease-out;
+}
+
+.header-autorized__link {
+  margin: 0;
+  margin-right: 16px;
+  text-decoration: none;
+  color: #000;
+}
+
+.header-autorized__link-in-burger {
+  display: none;
+}
+
+.header-autorized__button-link {
+  background-color: #F9F9F9;
+  border-radius: 20px;
+  min-width: 100px;
+  height: 32px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+}
+
+@media (max-width: 1023px) {
+  .header-autorized {
+    position: absolute;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    height: 0;
+    width: 520px;
+    z-index: 4;
+    padding: 0;
+    background-color: #fff;
+    box-sizing: border-box;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s ease-out;
+  }
+
+  .header-autorized .link {
+    display: none;
+  }
+
+  .header-autorized_active .link {
+    display: flex;
+  }
+
+  .header-autorized__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-autorized__link {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0 auto 20px;
+    padding-bottom: 4px;
+  }
+
+  .header-autorized__link_active {
+    border-bottom: 1px solid #000;
+  }
+
+  .header-autorized__button-link_active {
+    border: 1px solid #000;
+  }
+}
+
+.header-autorized_active {
+  visibility: visible;
+  opacity: 1;
+  height: 100vh;
+  padding: 159px 0 90px;
+}
+
+@media (max-width: 767px) {
+  .header-autorized {
+    width: 100%;
+  }
+
+  .header-autorized-overlay {
+    display: none;
+  }
+
+  .header-autorized_active {
+    padding: 140px 0 45px;
+  }
+}
+
+.header-autorized-overlay_active {
+  height: 100vh;
+  visibility: visible;
+  opacity: 0.3;
+}
+
+.header-autorized__link_active {
+  font-weight: 500;
+}
+
+.header-autorized__link-profile_active {
+  font-weight: 500;
+}

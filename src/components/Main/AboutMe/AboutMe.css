@@ -1,0 +1,112 @@
+.about-me {
+  padding: 111px 70px 0;
+}
+
+.about-me__container {
+  display: flex;
+  gap: 270px;
+  margin-top: 66px;
+}
+
+.about-me__info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.about-me__info-title {
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.about-me__info-subtitle {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11;
+  margin: 0;
+  margin-top: 18px;
+}
+
+.about-me__info-paragraph {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.57;
+  margin: 26px 0 34px;
+}
+
+.about-me__link {
+  margin: auto 0 1px;
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.about-me__picture {
+  height: 327px;
+  border-radius: 10px;
+  object-position: center;
+  object-fit: contain;
+}
+
+@media (max-width: 1279px) {
+  .about-me {
+    padding: calc(((100vw - 768px) / (1280 - 768)) * (111 - 90) + 90px) calc(((100vw - 768px) / (1280 - 768)) * (70 - 50) + 50px) 0;
+  }
+
+  .about-me__container {
+    gap: calc(((100vw - 768px) / (1280 - 768)) * (270 - 49) + 49px);
+  }
+
+  .about-me__info-title {
+    font-size: calc(((100vw - 768px) / (1280 - 768)) * (50 - 40) + 40px);
+  }
+
+  .about-me__info-subtitle {
+    font-size: calc(((100vw - 768px) / (1280 - 768)) * (18 - 12) + 12px);
+  }
+
+  .about-me__info-paragraph {
+    font-size: calc(((100vw - 768px) / (1280 - 768)) * (14 - 12) + 12px);
+    margin-top: calc(((100vw - 768px) / (1280 - 768)) * (26 - 20) + 20px);
+  }
+
+  .about-me__picture {
+    height: calc(((100vw - 768px) / (1280 - 768)) * (327 - 307) + 307px);
+  }
+}
+
+@media (max-width: 767px) {
+  .about-me {
+    padding: calc(((100vw - 320px) / (768 - 320)) * (90 - 70) + 70px) calc(((100vw - 320px) / (768 - 320)) * (50 - 14) + 14px) 0;
+  }
+
+  .about-me__container {
+    flex-direction: column-reverse;
+    gap: calc(((100vw - 320px) / (768 - 320)) * (49 - 40) + 40px);
+    margin-top: 60px;
+  }
+
+  .about-me__info-title {
+    font-size: calc(((100vw - 320px) / (768 - 320)) * (40 - 30) + 30px);
+  }
+
+  .about-me__info-subtitle {
+    font-size: 11px;
+    margin-top: 22px;
+  }
+
+  .about-me__info-paragraph {
+    font-size: 11px;
+    margin-top: 20px;
+  }
+
+  .about-me__picture {
+    height: 352px;
+  }
+}
