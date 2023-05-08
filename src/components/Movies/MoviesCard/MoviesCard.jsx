@@ -4,16 +4,16 @@ function MoviesCard(props) {
   const {movie, handleSelectMovies, saved} = props;
 
   function handleSelectClick() {
-    handleSelectMovies(movie._id);
+    handleSelectMovies(movie.id);
   }
 
   return (
     <div className="movies-card">
-      <a href="https://youtu.be/pCpLWbHVNhk" target="_blank" rel="noreferrer" className="link">
-        <img className="movies-card__image" src={movie.link} alt={movie.name} />
+      <a href={movie.trailerLink} target="_blank" rel="noreferrer" className="link">
+        <img className="movies-card__image" src={`https://api.nomoreparties.co${movie.image.url}`} alt={movie.nameRU} />
       </a>
       <div className="movies-card__paraphernalia">
-        <h2 className="movies-card__title">{movie.name}</h2>
+        <h2 className="movies-card__title">{movie.nameRU}</h2>
         <button aria-label="выбрать" type="button" className={
           saved
             ?"movies-card__button-cross button"

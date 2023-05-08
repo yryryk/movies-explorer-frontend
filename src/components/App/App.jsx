@@ -10,33 +10,38 @@ import AuthorizedUserHeader from '../Header/AuthorizedUserHeader/AuthorizedUserH
 import UnauthorizedUserHeader from '../Header/UnauthorizedUserHeader/UnauthorizedUserHeader';
 import Footer from '../Footer/Footer';
 import NotFound from '../NotFound/NotFound';
-import Picture from '../../images/movie.png';
+// import Picture from '../../images/movie.png';
 import { useState, useEffect } from 'react';
+import moviesApi from '../../utils/Api/MoviesApi';
 
 function App() {
   const [moviesCardList, setMoviesCardList] = useState([]);
   const [selectedMoviesCardList, setSelectedMoviesCardList] = useState([]);
+
+  async function fetchMovies() {
+    try {
+      const movies = await moviesApi();
+      const editedMovies = movies.map((movie)=>{
+        return {...movie, isSelected: false}
+      })
+      setMoviesCardList(editedMovies);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
-    const arr =[];
-    for(let i = 0; i < 3; i++) {
-      arr.push({name: "33 слова о дизайне", duration: "1ч42м", link: `${Picture}`, isSelected: true, _id: i})
-    }
-    for(let i = 3; i < 16; i++) {
-      arr.push({name: "33 слова о дизайне", duration: "1ч42м", link: `${Picture}`, isSelected: false, _id: i})
-    }
-    setTimeout(()=> {
-      setMoviesCardList(arr);
-    },1000);
+    fetchMovies();
   },[]);
 
   useEffect(() => {
     setSelectedMoviesCardList(moviesCardList.filter((movie)=>movie.isSelected))
-  },[moviesCardList]);
+  },[moviesCardList, setMoviesCardList]);
 
   function handleSelectMovies(movieId) {
     setMoviesCardList((state) => state.map((movie) => {
-      if(movie._id === movieId) {
-        movie={...movie, isSelected: !movie.isSelected}
+      if(movie.id === movieId) {
+        movie={...movie, isSelected: !movie.isSelected};
       }
       return movie
     }));
