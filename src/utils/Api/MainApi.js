@@ -4,84 +4,54 @@ class MainApi {
     this._headers = headers;
   }
 
-  _checkExecution(resolve) {
-    if (resolve.ok) {
-      return resolve.json();
+  _checkExecution(response) {
+    if (response.ok) {
+      return response.json();
     }
-    return Promise.reject(`Ошибка: ${resolve.status}`);
+    return Promise.reject(`Ошибка: ${response.status}`);
   }
 
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
+  async getUserInfo() {
+    const response = await fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
-    })
-    .then(this._checkExecution)
+    });
+    return this._checkExecution(response);
   }
 
-  setUserInfo(inputValues) {
-    return fetch(`${this._baseUrl}/users/me`, {
+  async setUserInfo(inputValues) {
+    const response = await fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name: inputValues.name,
         about: inputValues.about
       })
-    })
-    .then(this._checkExecution);
+    });
+    return this._checkExecution(response);
   }
 
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+  async getMovies() {
+    const response = await fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
-    })
-    .then(this._checkExecution)
+    });
+    return this._checkExecution(response);
   }
 
-  setCard(inputValues) {
-    return fetch(`${this._baseUrl}/cards`, {
+  async createMovie(data) {
+    const response = await fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({
-        name: inputValues.name,
-        link: inputValues.link
-      })
-    })
-    .then(this._checkExecution);
+      body: JSON.stringify({...data})
+    });
+    return this._checkExecution(response);
   }
 
-  deleteCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+  async deleteMovie(cardId) {
+    const response = await fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers
-    })
-    .then(this._checkExecution);
-  }
-
-  changeLikeCardStatus(cardId, isLiked) {
-    if(isLiked) {
-      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-        method: 'DELETE',
-        headers: this._headers
-      })
-      .then(this._checkExecution);
-    } else {
-      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-        method: 'PUT',
-        headers: this._headers
-      })
-      .then(this._checkExecution);
-    }
-  }
-
-  setUserAvatar(inputValues) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: inputValues.avatar
-      })
-    })
-    .then(this._checkExecution);
+    });
+    return this._checkExecution(response);
   }
 
   setToken(JWT) {

@@ -10,7 +10,6 @@ import AuthorizedUserHeader from '../Header/AuthorizedUserHeader/AuthorizedUserH
 import UnauthorizedUserHeader from '../Header/UnauthorizedUserHeader/UnauthorizedUserHeader';
 import Footer from '../Footer/Footer';
 import NotFound from '../NotFound/NotFound';
-// import Picture from '../../images/movie.png';
 import { useState, useEffect } from 'react';
 import moviesApi from '../../utils/Api/MoviesApi';
 
@@ -21,7 +20,7 @@ function App() {
   async function fetchMovies() {
     try {
       const movies = await moviesApi();
-      const editedMovies = movies.map((movie)=>{
+      const editedMovies = movies.map((movie) => {
         return {...movie, isSelected: false}
       })
       setMoviesCardList(editedMovies);
