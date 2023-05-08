@@ -19,7 +19,7 @@
   background-color: #000;
   visibility: hidden;
   opacity: 0;
-  transition: all 1s ease-out;
+  transition: all 0.9s ease-out;
 }
 
 .header-autorized__link {
@@ -60,7 +60,7 @@
     box-sizing: border-box;
     visibility: hidden;
     opacity: 0;
-    transition: all 1s ease-out;
+    transition: all 0.9s ease-out;
   }
 
   .header-autorized .link {

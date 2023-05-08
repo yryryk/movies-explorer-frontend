@@ -3,7 +3,6 @@ import {Route, Routes} from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
@@ -16,6 +15,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [moviesCardList, setMoviesCardList] = useState([]);
+  const [selectedMoviesCardList, setSelectedMoviesCardList] = useState([]);
   useEffect(() => {
     const arr =[];
     for(let i = 0; i < 3; i++) {
@@ -27,7 +27,11 @@ function App() {
     setTimeout(()=> {
       setMoviesCardList(arr);
     },1000);
-  },[setMoviesCardList]);
+  },[]);
+
+  useEffect(() => {
+    setSelectedMoviesCardList(moviesCardList.filter((movie)=>movie.isSelected))
+  },[moviesCardList]);
 
   function handleSelectMovies(movieId) {
     setMoviesCardList((state) => state.map((movie) => {
@@ -51,7 +55,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}/>
         <Route path="/movies" element={<Movies saved={false} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
-        <Route path="/saved-movies" element={<SavedMovies component={Movies} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
+        <Route path="/saved-movies" element={<Movies saved={true} moviesCardList={selectedMoviesCardList} handleSelectMovies={handleSelectMovies} />}/>
         <Route path="/profile" element={<Profile />}/>
         <Route path="/signin" element={<Login />}/>
         <Route path="/signup" element={<Register />}/>
