@@ -2,8 +2,8 @@ import './Register.css';
 import AuthorizationForm from '../AuthorizationForm/AuthorizationForm';
 import { useForm } from '../../hooks/useForm';
 
-function Register() {
-  const {handleChange, setValues} = useForm({
+function Register({onRegister}) {
+  const {values, handleChange, setValues} = useForm({
     name: '',
     email: '',
     password: '',
@@ -11,6 +11,7 @@ function Register() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    onRegister(values);
     setValues({
       name: '',
       email: '',

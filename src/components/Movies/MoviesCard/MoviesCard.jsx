@@ -1,11 +1,12 @@
 import './MoviesCard.css';
 
-function MoviesCard(props) {
-  const {movie, handleSelectMovies, saved} = props;
+function MoviesCard({movie, handleSelectMovies, saved}) {
 
   function handleSelectClick() {
     handleSelectMovies(movie.id);
   }
+  const durationMinute = movie.duration%60;
+  const duration = `${Math.floor(movie.duration/60)}ч ${durationMinute>9?durationMinute:"0"+ durationMinute}м`;
 
   return (
     <div className="movies-card">
@@ -21,7 +22,7 @@ function MoviesCard(props) {
               ?"movies-card__button movies-card__button_active button"
               :"movies-card__button button"
         } onClick={handleSelectClick}></button>
-        <p className="movies-card__duration">{movie.duration}</p>
+        <p className="movies-card__duration">{duration}</p>
       </div>
     </div>
   );

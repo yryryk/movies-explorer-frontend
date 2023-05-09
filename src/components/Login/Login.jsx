@@ -2,14 +2,15 @@ import './Login.css';
 import AuthorizationForm from '../AuthorizationForm/AuthorizationForm';
 import { useForm } from '../../hooks/useForm';
 
-function Login() {
-  const {handleChange, setValues} = useForm({
+function Login({onLogin}) {
+  const {values, handleChange, setValues} = useForm({
     email: '',
     password: '',
   });
 
   function handleSubmit(e) {
     e.preventDefault();
+    onLogin(values);
     setValues({
       email: '',
       password: '',

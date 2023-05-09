@@ -23,8 +23,8 @@ class MainApi {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: inputValues.name,
-        about: inputValues.about
+        "name": inputValues.name,
+        "email": inputValues.email
       })
     });
     return this._checkExecution(response);
@@ -41,7 +41,7 @@ class MainApi {
     const response = await fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({...data})
+      body: JSON.stringify(data)
     });
     return this._checkExecution(response);
   }
