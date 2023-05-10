@@ -5,7 +5,7 @@ function MoviesCardList({ moviesCardList, handleSelectMovies, saved, multiplier 
 
   return (
     <section className="movies-card-list">
-      {moviesCardList.map((movie, i) => i<multiplier&&(<MoviesCard saved={saved} key={movie.id} movie={movie} handleSelectMovies={handleSelectMovies} />))}
+      {moviesCardList.map((movie, i) => i<multiplier&&(<MoviesCard saved={saved} key={movie.movieId} movie={movie} handleSelectMovies={handleSelectMovies} />))}
       <div></div><div></div><div></div>
     </section>
   );

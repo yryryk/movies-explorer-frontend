@@ -31,14 +31,14 @@ class MainApi {
   }
 
   async getMovies() {
-    const response = await fetch(`${this._baseUrl}/cards`, {
+    const response = await fetch(`${this._baseUrl}/movies`, {
       headers: this._headers
     });
     return this._checkExecution(response);
   }
 
   async createMovie(data) {
-    const response = await fetch(`${this._baseUrl}/cards`, {
+    const response = await fetch(`${this._baseUrl}/movies`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data)
@@ -46,8 +46,8 @@ class MainApi {
     return this._checkExecution(response);
   }
 
-  async deleteMovie(cardId) {
-    const response = await fetch(`${this._baseUrl}/cards/${cardId}`, {
+  async deleteMovie(id) {
+    const response = await fetch(`${this._baseUrl}/movies/${id}`, {
       method: 'DELETE',
       headers: this._headers
     });

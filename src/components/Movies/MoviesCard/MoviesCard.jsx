@@ -3,7 +3,7 @@ import './MoviesCard.css';
 function MoviesCard({movie, handleSelectMovies, saved}) {
 
   function handleSelectClick() {
-    handleSelectMovies(movie.id);
+    handleSelectMovies(movie.movieId);
   }
   const durationMinute = movie.duration%60;
   const duration = `${Math.floor(movie.duration/60)}ч ${durationMinute>9?durationMinute:"0"+ durationMinute}м`;
@@ -11,7 +11,7 @@ function MoviesCard({movie, handleSelectMovies, saved}) {
   return (
     <div className="movies-card">
       <a href={movie.trailerLink} target="_blank" rel="noreferrer" className="link">
-        <img className="movies-card__image" src={`https://api.nomoreparties.co${movie.image.url}`} alt={movie.nameRU} />
+        <img className="movies-card__image" src={movie.image} alt={movie.nameRU} />
       </a>
       <div className="movies-card__paraphernalia">
         <h2 className="movies-card__title">{movie.nameRU}</h2>

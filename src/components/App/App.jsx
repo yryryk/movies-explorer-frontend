@@ -18,7 +18,6 @@ import auth from '../../utils/Auth/Auth';
 function App() {
   const [moviesCardList, setMoviesCardList] = useState([]);
   const [selectedMoviesCardList, setSelectedMoviesCardList] = useState([]);
-  const [successAuth, setSuccessAuth] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,38 +25,57 @@ function App() {
       try {
         const jwt = localStorage.getItem("JWT");
         if (jwt) {
-          const token = await auth.checkToken(jwt);
-          if (token) {
+          const user = await auth.checkToken(jwt);
+          if (user) {
             mainApi.setToken(jwt);
             let movies = await moviesApi();
-            movies = movies.map((movie) => {
-              return {...movie, isSelected: false}
-            });
-            // уменьшаем алгоритмическую сложность 2*(N + K) < N*K
-            const editedMovies = {};
-            movies.forEach((movie) => {
-              editedMovies[movie.id] = movie;
+            const userMovies = await mainApi.getMovies();
+            let editedUserMovies = {};
+            userMovies.forEach((movie) => {
+              editedUserMovies[movie.movieId] = movie._id;
             });
 
-            // const userMovies = await mainApi.getMovies();
-            const userMovies = [1, 3, 5];
-            userMovies.forEach((id) => {
-              editedMovies[id].isSelected = true;
+            movies = movies.map((movie) => {
+              const {
+                country,
+                director,
+                duration,
+                year,
+                description,
+                trailerLink,
+                nameRU,
+                nameEN,
+              } = movie;
+              const editedMovie = {
+                country,
+                director,
+                duration,
+                year,
+                description,
+                image: `https://api.nomoreparties.co${movie.image.url}`,
+                trailerLink,
+                nameRU,
+                nameEN,
+                thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+                movieId: movie.id,
+                isSelected: false,
+                owner: user._id,
+              }
+              if(editedUserMovies[editedMovie.movieId]) {
+                editedMovie._id = editedUserMovies[editedMovie.movieId];
+                editedMovie.isSelected = true;
+              }
+              return editedMovie
             });
-            movies = Object.values(editedMovies);
             setMoviesCardList(movies);
-            navigate("/movies");
-            setSuccessAuth(true);
           }
         }
       } catch (err) {
         console.log(err);
       }
     }
-    if (!successAuth) {
-      getAuthAndMovies();
-    }
-  },[navigate, successAuth]);
+    getAuthAndMovies();
+  },[]);
 
   const handleLogin = (inputValues) => {
     auth.signInUser(inputValues)
@@ -95,13 +113,36 @@ function App() {
     setSelectedMoviesCardList(moviesCardList.filter((movie)=>movie.isSelected))
   },[moviesCardList, setMoviesCardList]);
 
-  function handleSelectMovies(movieId) {
-    setMoviesCardList((state) => state.map((movie) => {
-      if(movie.id === movieId) {
-        movie={...movie, isSelected: !movie.isSelected};
+  async function handleSelectMovies(movieId) {
+    let movie;
+    moviesCardList.forEach((movieCard) => {
+      if(movieCard.movieId === movieId) {
+        movie = movieCard
       }
-      return movie
-    }));
+    })
+
+    try {
+      let res;
+      if(movie.isSelected) {
+        res = await mainApi.deleteMovie(movie._id)
+        res.isSelected = !res.isSelected;
+        delete res._id;
+        delete res.__v;
+      } else {
+        movie.isSelected = !movie.isSelected;
+        res = await mainApi.createMovie(movie);
+      }
+      setMoviesCardList((state) => state.map((movieCard) => {
+        if(movieCard.movieId === movieId) {
+          movieCard = res;
+          movieCard.isSelected = !movieCard.isSelected;
+        }
+        return movieCard
+      }));
+
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
