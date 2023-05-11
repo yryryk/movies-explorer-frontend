@@ -135,7 +135,6 @@ function App() {
       setMoviesCardList((state) => state.map((movieCard) => {
         if(movieCard.movieId === movieId) {
           movieCard = res;
-          movieCard.isSelected = !movieCard.isSelected;
         }
         return movieCard
       }));
