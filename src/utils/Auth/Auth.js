@@ -12,7 +12,6 @@ class Auth {
   }
 
   signUpUser(inputValues) {
-    console.log(inputValues);
     return fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
       headers: this._headers,

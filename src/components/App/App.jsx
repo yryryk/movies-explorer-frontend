@@ -18,6 +18,7 @@ import auth from '../../utils/Auth/Auth';
 function App() {
   const [moviesCardList, setMoviesCardList] = useState([]);
   const [selectedMoviesCardList, setSelectedMoviesCardList] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,11 +32,9 @@ function App() {
             mainApi.setToken(jwt);
             let movies = await moviesApi();
             let userMovies;
-            if(prevMovies.length) {
-              console.log('из памяти');
+            if(prevMovies&&prevMovies.length) {
               userMovies = prevMovies;
             }else{
-              console.log('из Api');
               userMovies = await mainApi.getMovies();
             }
 
@@ -84,7 +83,7 @@ function App() {
       }
     }
     getAuthAndMovies();
-  },[]);
+  },[isLoggedIn]);
 
   const handleLogin = (inputValues) => {
     auth.signInUser(inputValues)
@@ -92,6 +91,7 @@ function App() {
       localStorage.setItem('JWT', result.token);
       mainApi.setToken(result.token);
       navigate("/movies");
+      setIsLoggedIn(true);
     })
     .catch((err) => {
       console.log(err);
@@ -104,6 +104,7 @@ function App() {
       localStorage.setItem('JWT', result.token);
       mainApi.setToken(result.token);
       navigate("/movies");
+      setIsLoggedIn(true);
     })
     .catch((err) => {
       console.log(err);
@@ -112,6 +113,8 @@ function App() {
 
   function onSignOut() {
     localStorage.removeItem('JWT');
+    localStorage.removeItem('Movies');
+    setIsLoggedIn(false);
   }
 
   function handleUpdateUser(inputValuesUser) {
