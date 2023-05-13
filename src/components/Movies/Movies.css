@@ -13,3 +13,9 @@
     padding: 80px calc(((100vw - 320px) / (768 - 320)) * (30 - 10) + 10px);
   }
 }
+
+.movies__message {
+  margin: 50px auto;
+  text-align: center;
+  color: turquoise;
+}

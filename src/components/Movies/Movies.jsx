@@ -6,7 +6,7 @@ import MoreMoviesButton from './MoreMoviesButton/MoreMoviesButton';
 import { useState } from 'react';
 
 function Movies(props) {
-  const {moviesCardList} = props;
+  const {moviesCardList, saved} = props;
   const [multiplier, setMultiplier] = useState(4*Math.floor(window.innerWidth/320))
   const [isSwitcherChecked, setIsSwitcherChecked] = useState(false);
   const [searchValue, setSearchValue] = useState(false);
@@ -23,11 +23,31 @@ function Movies(props) {
     setSearchValue(searchQuery)
   }
 
+  function allowMovie(movie) {
+    let allow = 1;
+    if(isSwitcherChecked) {
+      movie.duration<41?allow *= 1:allow *= 0;
+    }
+    if(searchValue) {
+      movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())?allow *= 1:allow *= 0;
+    } else {
+      saved?allow *= 1:allow *= 0;
+    }
+    return Boolean(allow)
+  }
+
+  const filteredMoviesCardList = moviesCardList.filter((movie) => allowMovie(movie)).filter((movie, i) => i<multiplier);
+
   return (
     <main className="movies">
     <SearchForm handleSwitch={handleSwitch} onSearch={onSearch} saved={props.saved} />
-      {moviesCardList.length?<MoviesCardList {...props} multiplier={multiplier} isSwitcherChecked={isSwitcherChecked} searchValue={searchValue} />:<Preloader />}
-      <MoreMoviesButton exist={moviesCardList.length>multiplier-1} />
+      {moviesCardList.length
+        ?filteredMoviesCardList.length
+          ?<MoviesCardList {...props} filteredMoviesCardList={filteredMoviesCardList} />
+          :<p className="movies__message">По вашему запросу ничего не найдено</p>
+        :<Preloader />
+      }
+      <MoreMoviesButton exist={filteredMoviesCardList.length&&moviesCardList.length>multiplier-1} />
     </main>
   );
 }
