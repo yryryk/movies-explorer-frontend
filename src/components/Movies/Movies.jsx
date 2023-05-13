@@ -16,7 +16,9 @@ function Movies(props) {
   });
 
   function handleSwitch(evt) {
-    setIsSwitcherChecked(evt.target.checked)
+    setTimeout(() => {
+      setIsSwitcherChecked(evt.target.checked)
+    }, 150);
   }
 
   function onSearch(searchQuery) {

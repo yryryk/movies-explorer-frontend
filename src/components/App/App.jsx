@@ -21,6 +21,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const prevMovies = JSON.parse(localStorage.getItem('Movies'));
     async function getAuthAndMovies() {
       try {
         const jwt = localStorage.getItem("JWT");
@@ -29,7 +30,15 @@ function App() {
           if (user) {
             mainApi.setToken(jwt);
             let movies = await moviesApi();
-            const userMovies = await mainApi.getMovies();
+            let userMovies;
+            if(prevMovies.length) {
+              console.log('из памяти');
+              userMovies = prevMovies;
+            }else{
+              console.log('из Api');
+              userMovies = await mainApi.getMovies();
+            }
+
             let editedUserMovies = {};
             userMovies.forEach((movie) => {
               editedUserMovies[movie.movieId] = movie._id;
@@ -110,7 +119,9 @@ function App() {
   }
 
   useEffect(() => {
-    setSelectedMoviesCardList(moviesCardList.filter((movie)=>movie.isSelected))
+    const selectedMovies = moviesCardList.filter((movie)=>movie.isSelected);
+    setSelectedMoviesCardList(selectedMovies);
+    localStorage.setItem('Movies', JSON.stringify(selectedMovies));
   },[moviesCardList, setMoviesCardList]);
 
   async function handleSelectMovies(movieId) {
