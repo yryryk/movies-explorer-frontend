@@ -9,6 +9,7 @@ function Movies(props) {
   const {moviesCardList} = props;
   const [multiplier, setMultiplier] = useState(4*Math.floor(window.innerWidth/320))
   const [isSwitcherChecked, setIsSwitcherChecked] = useState(false);
+  const [searchValue, setSearchValue] = useState(false);
 
   window.addEventListener('resize', () => {
     setMultiplier(4*Math.floor(window.innerWidth/320));
@@ -18,10 +19,14 @@ function Movies(props) {
     setIsSwitcherChecked(evt.target.checked)
   }
 
+  function onSearch(searchQuery) {
+    setSearchValue(searchQuery)
+  }
+
   return (
     <main className="movies">
-      <SearchForm handleSwitch={handleSwitch} />
-      {moviesCardList.length?<MoviesCardList {...props} multiplier={multiplier} isSwitcherChecked={isSwitcherChecked} />:<Preloader />}
+    <SearchForm handleSwitch={handleSwitch} onSearch={onSearch} saved={props.saved} />
+      {moviesCardList.length?<MoviesCardList {...props} multiplier={multiplier} isSwitcherChecked={isSwitcherChecked} searchValue={searchValue} />:<Preloader />}
       <MoreMoviesButton exist={moviesCardList.length>multiplier-1} />
     </main>
   );

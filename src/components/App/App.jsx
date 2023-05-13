@@ -156,8 +156,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Main />}/>
-        <Route path="/movies" element={<Movies saved={false} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
-        <Route path="/saved-movies" element={<Movies saved={true} moviesCardList={selectedMoviesCardList} handleSelectMovies={handleSelectMovies} />}/>
+        <Route path="/movies" element={<Movies key={0} saved={false} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
+        <Route path="/saved-movies" element={<Movies key={1} saved={true} moviesCardList={selectedMoviesCardList} handleSelectMovies={handleSelectMovies} />}/>
         <Route path="/profile" element={<Profile onSignOut={onSignOut} onUpdateUser={handleUpdateUser} />}/>
         <Route path="/signin" element={<Login onLogin={handleLogin} />}/>
         <Route path="/signup" element={<Register onRegister={handleRegister} />}/>
