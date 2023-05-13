@@ -47,7 +47,9 @@ function Movies(props) {
         ?filteredMoviesCardList.length
           ?<MoviesCardList {...props} filteredMoviesCardList={filteredMoviesCardList} />
           :<p className="movies__message">По вашему запросу ничего не найдено</p>
-        :<Preloader />
+        :!saved
+          ?<Preloader />
+          :<p className="movies__message">Здесь ещё ничего нет</p>
       }
       <MoreMoviesButton exist={filteredMoviesCardList.length&&moviesCardList.length>multiplier-1} />
     </main>
