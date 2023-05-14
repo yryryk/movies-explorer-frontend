@@ -30,11 +30,11 @@ function Login({onLogin}) {
         }}
       >
         <label className="auth-form__label" htmlFor="email-input">E-mail</label>
-        <input id="email-input" type="email" name="email" className="auth-form__input" onChange={handleChange} minLength="2" maxLength="40" required />
-        <span className="auth-form__error">Что-то пошло не так...</span>
+        <input id="login-email-input" type="email" name="email" className="auth-form__input input" onChange={handleChange} minLength="2" maxLength="40" required />
+        <span className="auth-form__error login-email-input-error error">Что-то пошло не так...</span>
         <label className="auth-form__label" htmlFor="password-input">Пароль</label>
-        <input id="password-input" type="password" name="password" className="auth-form__input" onChange={handleChange} minLength="2" maxLength="200" required />
-        <span className="auth-form__error">Что-то пошло не так...</span>
+        <input id="login-password-input" type="password" name="password" className="auth-form__input input" onChange={handleChange} minLength="2" maxLength="32" required />
+        <span className="auth-form__error login-password-input-error error">Что-то пошло не так...</span>
       </AuthorizationForm>
     </main>
   );
