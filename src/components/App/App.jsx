@@ -14,76 +14,118 @@ import { useState, useEffect } from 'react';
 import moviesApi from '../../utils/Api/MoviesApi';
 import mainApi from '../../utils/Api/MainApi';
 import auth from '../../utils/Auth/Auth';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({
+    email: '',
+    name: '',
+    _id: '',
+    searchQuery: '',
+    switchersChecked: [false, false],
+});
   const [moviesCardList, setMoviesCardList] = useState([]);
   const [selectedMoviesCardList, setSelectedMoviesCardList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const prevMovies = JSON.parse(localStorage.getItem('Movies'));
-    async function getAuthAndMovies() {
+    const switchers = JSON.parse(localStorage.getItem('Switchers'));
+    if(switchers) {
+      setCurrentUser((state) => ({ ...state, switchersChecked: switchers }));
+    }
+
+    const searchQuery = JSON.parse(localStorage.getItem('SearchQuery'));
+    if(searchQuery) {
+      setCurrentUser((state) => ({ ...state, searchQuery: searchQuery }));
+    }
+  }, [])
+
+  useEffect(() => {
+    async function getAuth() {
       try {
         const jwt = localStorage.getItem("JWT");
         if (jwt) {
           const user = await auth.checkToken(jwt);
           if (user) {
             mainApi.setToken(jwt);
-            let movies = await moviesApi();
-            let userMovies;
-            if(prevMovies&&prevMovies.length) {
-              userMovies = prevMovies;
-            }else{
-              userMovies = await mainApi.getMovies();
-            }
-
-            let editedUserMovies = {};
-            userMovies.forEach((movie) => {
-              editedUserMovies[movie.movieId] = movie._id;
-            });
-
-            movies = movies.map((movie) => {
-              const {
-                country,
-                director,
-                duration,
-                year,
-                description,
-                trailerLink,
-                nameRU,
-                nameEN,
-              } = movie;
-              const editedMovie = {
-                country,
-                director,
-                duration,
-                year,
-                description,
-                image: `https://api.nomoreparties.co${movie.image.url}`,
-                trailerLink,
-                nameRU,
-                nameEN,
-                thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-                movieId: movie.id,
-                isSelected: false,
-                owner: user._id,
-              }
-              if(editedUserMovies[editedMovie.movieId]) {
-                editedMovie._id = editedUserMovies[editedMovie.movieId];
-                editedMovie.isSelected = true;
-              }
-              return editedMovie
-            });
-            setMoviesCardList(movies);
+            setCurrentUser((state) => ({ ...state, email: user.email, name: user.name, _id: user._id }));
+            setIsLoggedIn(true)
           }
         }
       } catch (err) {
         console.log(err);
       }
     }
-    getAuthAndMovies();
-  },[isLoggedIn]);
+    getAuth();
+  },[]);
+
+  useEffect(() => {
+    const prevMovies = JSON.parse(localStorage.getItem('Movies'));
+    const prevSavedMovies = JSON.parse(localStorage.getItem('SavedMovies'));
+    async function getMovies() {
+      try {
+        if (isLoggedIn) {
+          let movies;
+          if(prevMovies&&prevMovies.length) {
+            movies = prevMovies;
+          }else{
+            movies = await moviesApi();
+            localStorage.setItem('Movies', JSON.stringify(movies));
+          }
+
+          let userMovies;
+          if(prevSavedMovies&&prevSavedMovies.length) {
+            userMovies = prevSavedMovies;
+          }else{
+            userMovies = await mainApi.getMovies();
+          }
+          // Избавляемся от цикла в цикле
+          let editedUserMovies = {};
+          userMovies.forEach((movie) => {
+            editedUserMovies[movie.movieId] = movie._id;
+          });
+
+          movies = movies.map((movie) => {
+            const {
+              country,
+              director,
+              duration,
+              year,
+              description,
+              trailerLink,
+              nameRU,
+              nameEN,
+            } = movie;
+            const editedMovie = {
+              country,
+              director,
+              duration,
+              year,
+              description,
+              image: `https://api.nomoreparties.co${movie.image.url}`,
+              trailerLink,
+              nameRU,
+              nameEN,
+              thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+              movieId: movie.id,
+              isSelected: false,
+              owner: currentUser._id,
+            }
+            if(editedUserMovies[editedMovie.movieId]) {
+              editedMovie._id = editedUserMovies[editedMovie.movieId];
+              editedMovie.isSelected = true;
+            }
+            return editedMovie
+          });
+          setMoviesCardList(movies);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getMovies();
+  },[currentUser._id, isLoggedIn]);
 
   const handleLogin = (inputValues) => {
     auth.signInUser(inputValues)
@@ -92,6 +134,7 @@ function App() {
       mainApi.setToken(result.token);
       navigate("/movies");
       setIsLoggedIn(true);
+      setCurrentUser((state) => ({ ...state, email: result.email, name: result.name }));
     })
     .catch((err) => {
       console.log(err);
@@ -105,6 +148,7 @@ function App() {
       mainApi.setToken(result.token);
       navigate("/movies");
       setIsLoggedIn(true);
+      setCurrentUser((state) => ({ ...state, email: result.email, name: result.name }));
     })
     .catch((err) => {
       console.log(err);
@@ -113,8 +157,16 @@ function App() {
 
   function onSignOut() {
     localStorage.removeItem('JWT');
+    localStorage.removeItem('SavedMovies');
     localStorage.removeItem('Movies');
-    setIsLoggedIn(false);
+    localStorage.removeItem('Switchers');
+    localStorage.removeItem('SearchQuery');
+    setCurrentUser({
+      email: '',
+      name: '',
+      searchQuery: '',
+      switchersChecked: [false, false],
+    });
   }
 
   function handleUpdateUser(inputValuesUser) {
@@ -124,7 +176,7 @@ function App() {
   useEffect(() => {
     const selectedMovies = moviesCardList.filter((movie)=>movie.isSelected);
     setSelectedMoviesCardList(selectedMovies);
-    localStorage.setItem('Movies', JSON.stringify(selectedMovies));
+    localStorage.setItem('SavedMovies', JSON.stringify(selectedMovies));
   },[moviesCardList, setMoviesCardList]);
 
   async function handleSelectMovies(movieId) {
@@ -159,30 +211,32 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <Routes>
-        <Route path="/" element={<Header />}>
-          <Route index element={<UnauthorizedUserHeader />} />
-          {["movies", "saved-movies", "profile"].map((somePath, i) => (<Route path={somePath} key={i} element={<AuthorizedUserHeader />} />))}
-        </Route>
-        <Route path="*" element={<header></header>}></Route>
-      </Routes>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<Header />}>
+            <Route index element={isLoggedIn?<AuthorizedUserHeader />:<UnauthorizedUserHeader />} />
+            {["movies", "saved-movies", "profile"].map((somePath, i) => (<Route path={somePath} key={i} element={<AuthorizedUserHeader />} />))}
+          </Route>
+          <Route path="*" element={<header></header>}></Route>
+        </Routes>
 
-      <Routes>
-        <Route path="/" element={<Main />}/>
-        <Route path="/movies" element={<Movies key={0} saved={false} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
-        <Route path="/saved-movies" element={<Movies key={1} saved={true} moviesCardList={selectedMoviesCardList} handleSelectMovies={handleSelectMovies} />}/>
-        <Route path="/profile" element={<Profile onSignOut={onSignOut} onUpdateUser={handleUpdateUser} />}/>
-        <Route path="/signin" element={<Login onLogin={handleLogin} />}/>
-        <Route path="/signup" element={<Register onRegister={handleRegister} />}/>
-        <Route path="*" element={<NotFound />}/>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Main />}/>
+          <Route path="/movies" element={<Movies key={0} saved={false} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
+          <Route path="/saved-movies" element={<Movies key={1} saved={true} moviesCardList={selectedMoviesCardList} handleSelectMovies={handleSelectMovies} />}/>
+          <Route path="/profile" element={<Profile onSignOut={onSignOut} onUpdateUser={handleUpdateUser} />}/>
+          <Route path="/signin" element={<Login onLogin={handleLogin} />}/>
+          <Route path="/signup" element={<Register onRegister={handleRegister} />}/>
+          <Route path="*" element={<NotFound />}/>
+        </Routes>
 
-      <Routes>
-        {["/", "movies", "saved-movies"].map((somePath, i) => (<Route path={somePath} key={i} element={<Footer />} />))}
-        <Route path="*" element={<footer></footer>}></Route>
-      </Routes>
-    </div>
+        <Routes>
+          {["/", "movies", "saved-movies"].map((somePath, i) => (<Route path={somePath} key={i} element={<Footer />} />))}
+          <Route path="*" element={<footer></footer>}></Route>
+        </Routes>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
