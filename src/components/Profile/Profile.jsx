@@ -1,9 +1,11 @@
 import './Profile.css';
 import { useForm } from '../../hooks/useForm';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 function Profile({onSignOut, onUpdateUser}) {
+  const currentUser = useContext(CurrentUserContext);
   const [edit, setEdit] = useState(false);
 
   const {values, handleChange, setValues} = useForm({
@@ -11,13 +13,16 @@ function Profile({onSignOut, onUpdateUser}) {
     email: '',
   });
 
+  useEffect(() => {
+    setValues({
+      name: currentUser.name,
+      email: currentUser.email,
+    });
+  }, [currentUser, setValues]);
+
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUser(values);
-    setValues({
-      name: '',
-      email: '',
-    });
   }
 
   function handleEdit() {
@@ -26,7 +31,7 @@ function Profile({onSignOut, onUpdateUser}) {
 
   return (
     <main className="profile">
-      <h1 className="profile__title">Привет, Виталий!</h1>
+      <h1 className="profile__title">Привет, {currentUser.name}!</h1>
       <form className="profile__form" name="profile" onSubmit={handleSubmit}>
         <div className="profile__container">
           <label className="profile__label" htmlFor="profile-name-input">Имя</label>

@@ -50,7 +50,7 @@ function App() {
           if (user) {
             mainApi.setToken(jwt);
             setCurrentUser((state) => ({ ...state, email: user.email, name: user.name, _id: user._id }));
-            setIsLoggedIn(true)
+            setIsLoggedIn(true);
           }
         }
       } catch (err) {
@@ -63,6 +63,7 @@ function App() {
   useEffect(() => {
     const prevMovies = JSON.parse(localStorage.getItem('Movies'));
     const prevSavedMovies = JSON.parse(localStorage.getItem('SavedMovies'));
+
     async function getMovies() {
       try {
         if (isLoggedIn) {
@@ -127,35 +128,40 @@ function App() {
     getMovies();
   },[currentUser._id, isLoggedIn]);
 
-  const handleLogin = (inputValues) => {
-    auth.signInUser(inputValues)
-    .then((result) => {
+  async function executeAuth(method) {
+    try {
+      const result = await method();
       localStorage.setItem('JWT', result.token);
       mainApi.setToken(result.token);
       navigate("/movies");
       setIsLoggedIn(true);
       setCurrentUser((state) => ({ ...state, email: result.email, name: result.name }));
-    })
-    .catch((err) => {
+
+    } catch (err) {
       console.log(err);
-    });
+    }
   }
 
-  const handleRegister = (inputValues) => {
-    auth.signUpUser(inputValues)
-    .then((result) => {
-      localStorage.setItem('JWT', result.token);
-      mainApi.setToken(result.token);
-      navigate("/movies");
-      setIsLoggedIn(true);
+  function handleLogin(inputValues) {
+    executeAuth(() => auth.signInUser(inputValues))
+  }
+
+  function handleRegister(inputValues) {
+    executeAuth(() => auth.signUpUser(inputValues))
+  }
+
+  async function handleUpdateUser(inputValuesUser) {
+    try {
+      const result = await mainApi.setUserInfo(inputValuesUser)
       setCurrentUser((state) => ({ ...state, email: result.email, name: result.name }));
-    })
-    .catch((err) => {
+
+    } catch (err) {
       console.log(err);
-    });
+    }
   }
 
   function onSignOut() {
+    setIsLoggedIn(false);
     localStorage.removeItem('JWT');
     localStorage.removeItem('SavedMovies');
     localStorage.removeItem('Movies');
@@ -164,13 +170,11 @@ function App() {
     setCurrentUser({
       email: '',
       name: '',
+      _id: '',
       searchQuery: '',
       switchersChecked: [false, false],
     });
-  }
-
-  function handleUpdateUser(inputValuesUser) {
-    mainApi.setUserInfo(inputValuesUser)
+    setSelectedMoviesCardList([]);
   }
 
   useEffect(() => {
