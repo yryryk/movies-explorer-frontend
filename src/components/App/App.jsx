@@ -15,6 +15,7 @@ import moviesApi from '../../utils/Api/MoviesApi';
 import mainApi from '../../utils/Api/MainApi';
 import auth from '../../utils/Auth/Auth';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -23,10 +24,11 @@ function App() {
     _id: '',
     searchQuery: '',
     switchersChecked: [false, false],
-});
+  });
   const [moviesCardList, setMoviesCardList] = useState([]);
   const [selectedMoviesCardList, setSelectedMoviesCardList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [waitingLoad, setWaitingLoad] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,13 +50,15 @@ function App() {
         if (jwt) {
           const user = await auth.checkToken(jwt);
           if (user) {
+            setIsLoggedIn(true);
             mainApi.setToken(jwt);
             setCurrentUser((state) => ({ ...state, email: user.email, name: user.name, _id: user._id }));
-            setIsLoggedIn(true);
           }
         }
       } catch (err) {
         console.log(err);
+      } finally {
+        setWaitingLoad(false);
       }
     }
     getAuth();
@@ -227,9 +231,9 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Main />}/>
-          <Route path="/movies" element={<Movies key={0} saved={false} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
-          <Route path="/saved-movies" element={<Movies key={1} saved={true} moviesCardList={selectedMoviesCardList} handleSelectMovies={handleSelectMovies} />}/>
-          <Route path="/profile" element={<Profile onSignOut={onSignOut} onUpdateUser={handleUpdateUser} />}/>
+          <Route path="/movies" element={!waitingLoad&&<ProtectedRoute component={Movies} loggedIn={isLoggedIn} key={0} saved={false} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
+          <Route path="/saved-movies" element={!waitingLoad&&<ProtectedRoute component={Movies} loggedIn={isLoggedIn} key={1} saved={true} moviesCardList={selectedMoviesCardList} handleSelectMovies={handleSelectMovies} />}/>
+          <Route path="/profile" element={!waitingLoad&&<ProtectedRoute component={Profile} loggedIn={isLoggedIn} onSignOut={onSignOut} onUpdateUser={handleUpdateUser} />}/>
           <Route path="/signin" element={<Login onLogin={handleLogin} />}/>
           <Route path="/signup" element={<Register onRegister={handleRegister} />}/>
           <Route path="*" element={<NotFound />}/>
