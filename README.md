@@ -17,7 +17,11 @@ https://movies.tovchennikov.nomoredomains.monster/
 
 https://api.movies.tovchennikov.nomoredomains.monster/
 
+
+## [Ссылка на пул реквест](https://github.com/yryryk/movies-explorer-frontend/pull/2)
+
+
 ## [Ссылка на репозиторий](https://github.com/yryryk/movies-explorer-frontend)
 
 
-[Тот самый макет Figma](https://disk.yandex.ru/d/oDmAQfZKIzHH2w)
+[Макет Figma](https://disk.yandex.ru/d/oDmAQfZKIzHH2w)
