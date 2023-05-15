@@ -9,13 +9,24 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 function Movies(props) {
   const currentUser = useContext(CurrentUserContext);
   const {moviesCardList, saved} = props;
-  const [multiplier, setMultiplier] = useState(4*Math.floor(window.innerWidth/320))
+  const [numberOfRows, setNumberOfRows] = useState(4);
+  const [multiplier, setMultiplier] = useState(setMultiplierValue(numberOfRows))
   const [isSwitcherChecked, setIsSwitcherChecked] = useState(currentUser.switchersChecked);
   const [searchValue, setSearchValue] = useState(!saved?currentUser.searchQuery:false);
 
+  function setMultiplierValue(numberOfRows) {
+    const windowWidth = window.innerWidth;
+    const width = windowWidth<=1280?windowWidth:1280;
+    const value = numberOfRows*Math.floor(width/320);
+    return value
+  }
   window.addEventListener('resize', () => {
-    setMultiplier(4*Math.floor(window.innerWidth/320));
+    setMultiplier(setMultiplierValue(numberOfRows));
   });
+
+  useEffect(() => {
+    setMultiplier(setMultiplierValue(numberOfRows));
+  }, [numberOfRows]);
 
   useEffect(() => {
     setIsSwitcherChecked(currentUser.switchersChecked);
@@ -39,6 +50,10 @@ function Movies(props) {
     setSearchValue(searchQuery)
     !saved&&(currentUser.searchQuery = searchQuery);
     !saved&&(localStorage.setItem('SearchQuery', JSON.stringify(searchQuery)));
+  }
+
+  function handleMoreMovies() {
+    setNumberOfRows(numberOfRows+1)
   }
 
   function allowMovie(movie) {
@@ -67,7 +82,7 @@ function Movies(props) {
           ?<Preloader />
           :<p className="movies__message">Здесь ещё ничего нет</p>
       }
-      <MoreMoviesButton exist={filteredMoviesCardList.length>multiplier-1} />
+      <MoreMoviesButton exist={filteredMoviesCardList.length>multiplier-1} handleMoreMovies={handleMoreMovies} />
     </main>
   );
 }
