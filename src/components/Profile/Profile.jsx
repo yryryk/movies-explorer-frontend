@@ -9,19 +9,31 @@ import validationSettings from '../../utils/constants/validationSettings';
 function Profile({onSignOut, onUpdateUser}) {
   const currentUser = useContext(CurrentUserContext);
   const [edit, setEdit] = useState(false);
-
-  useEffect(() => {
-    if (edit) {
-      const form = document.querySelector(validationSettings.formSelector);
-      const formValidatorObject2 = new FormValidator(validationSettings, form);
-      formValidatorObject2.enableValidation();
-    }
-  }, [edit])
+  const [formValidatorObject, setFormValidatorObject] = useState(false);
 
   const {values, handleChange, setValues} = useForm({
     name: '',
     email: '',
   });
+
+  // (values.name===currentUser.name&&values.email===currentUser.email)
+  useEffect(() => {
+    if (edit) {
+      const form = document.querySelector(validationSettings.formSelector);
+      const formValidatorObject2 = new FormValidator(validationSettings, form);
+      formValidatorObject2.enableValidation();
+      setFormValidatorObject(formValidatorObject2);
+    }
+  }, [edit]);
+
+  useEffect(() => {
+    if (formValidatorObject) {
+      formValidatorObject.isProfile = true;
+      if(currentUser.name===values.name&&currentUser.email===values.email) {
+        formValidatorObject.disableButton()
+      }
+    }
+  }, [currentUser.email, currentUser.name, formValidatorObject, values.email, values.name])
 
   useEffect(() => {
     setValues({

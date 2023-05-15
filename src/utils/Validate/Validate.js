@@ -5,6 +5,7 @@ export default class FormValidator {
     this._formElement = formElement;
     this._emailValid = true;
     this._emailValidationMessage = 'Введите корректный адрес';
+    this.isProfile = false;
   }
 
   enableValidation () {
@@ -18,9 +19,9 @@ export default class FormValidator {
   _setEventListeners () {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
+        inputElement.getAttribute('type')==='email'&&this._useEmailPattern(inputElement);
         this._toggleInputErrorState(inputElement);
         this._toggleButtonState();
-        inputElement.getAttribute('name')==='email'&&this._useEmailPattern(inputElement);
       });
     });
   }
@@ -31,19 +32,17 @@ export default class FormValidator {
     }else{
       this._emailValid = true;
     }
-    this._toggleInputErrorState(inputElement);
-    this._toggleButtonState();
   };
 
   _toggleButtonState () {
     if (this._hasInvalidInput()||!this._emailValid) {
-      this._disableButton ()
+      this.disableButton ()
     } else {
       this._enableButton ()
     }
   };
 
-  _disableButton () {
+  disableButton () {
     this._buttonElement.classList.add(this._validationSettings.inactiveButtonClass);
     this._buttonElement.setAttribute('disabled', true);
   };
