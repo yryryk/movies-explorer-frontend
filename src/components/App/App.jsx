@@ -158,9 +158,9 @@ function App() {
     try {
       const result = await mainApi.setUserInfo(inputValuesUser)
       setCurrentUser((state) => ({ ...state, email: result.email, name: result.name }));
-
+      return result
     } catch (err) {
-      console.log(err);
+      return Promise.reject(err);
     }
   }
 

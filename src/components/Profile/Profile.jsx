@@ -9,14 +9,14 @@ import validationSettings from '../../utils/constants/validationSettings';
 function Profile({onSignOut, onUpdateUser}) {
   const currentUser = useContext(CurrentUserContext);
   const [edit, setEdit] = useState(false);
-  const [formValidatorObject, setFormValidatorObject] = useState(false);
+  const [formValidatorObject, setFormValidatorObject] = useState(null);
+  const [updateUser, setUpdateUser] = useState(true);
 
   const {values, handleChange, setValues} = useForm({
     name: '',
     email: '',
   });
 
-  // (values.name===currentUser.name&&values.email===currentUser.email)
   useEffect(() => {
     if (edit) {
       const form = document.querySelector(validationSettings.formSelector);
@@ -42,9 +42,22 @@ function Profile({onSignOut, onUpdateUser}) {
     });
   }, [currentUser, setValues]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUser(values);
+    const profileApiError = document.querySelector('.profile-api-error');
+    try {
+      const result = await onUpdateUser(values);
+      if(result) {
+        setUpdateUser(true);
+        profileApiError.classList.add('error_active');
+      }
+    } catch (err) {
+      if(err) {
+        setUpdateUser(false);
+        profileApiError.classList.add('error_active');
+      }
+      console.log(err);
+    }
   }
 
   function handleEdit() {
@@ -66,13 +79,13 @@ function Profile({onSignOut, onUpdateUser}) {
         </div>
         <span className="profile__error profile-email-input-error error">Что-то пошло не так...</span>
         {edit&&<>
-          <span className="profile__error api-error">При обновлении профиля произошла ошибка.</span>
+          <span className="profile__error profile-api-error api-error">{updateUser?"Профиль успешно обновлён":"При обновлении профиля произошла ошибка"}</span>
           <button aria-label="кнопка сохранить" type="submit" className="profile__submit-button submit-button button">Сохранить</button>
         </>}
       </form>
      {!edit&&<>
         <button aria-label="кнопка сохранить" type="button" className="profile__edit-button button" onClick={handleEdit}>Редактировать</button>
-        <Link to="/signin" className="profile__link-quit link" onClick={onSignOut} >Выйти из аккаунта</Link>
+        <Link to="/" className="profile__link-quit link" onClick={onSignOut} >Выйти из аккаунта</Link>
       </>}
     </main>
   );
