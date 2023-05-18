@@ -11,6 +11,7 @@ function Profile({onSignOut, onUpdateUser}) {
   const [edit, setEdit] = useState(false);
   const [formValidatorObject, setFormValidatorObject] = useState(null);
   const [updateUser, setUpdateUser] = useState(true);
+  const profileApiError = document.querySelector('.profile-api-error');
 
   const {values, handleChange, setValues} = useForm({
     name: '',
@@ -44,12 +45,12 @@ function Profile({onSignOut, onUpdateUser}) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const profileApiError = document.querySelector('.profile-api-error');
     try {
       const result = await onUpdateUser(values);
       if(result) {
         setUpdateUser(true);
         profileApiError.classList.add('error_active');
+        setEdit(false);
       }
     } catch (err) {
       if(err) {
@@ -62,6 +63,7 @@ function Profile({onSignOut, onUpdateUser}) {
 
   function handleEdit() {
     setEdit(true);
+    profileApiError.classList.remove('error_active');
   }
 
   return (
@@ -78,8 +80,8 @@ function Profile({onSignOut, onUpdateUser}) {
           <input id="profile-email-input" type="email" name="email" className="profile__input input" onChange={handleChange} minLength="2" maxLength="40" value={values.email||''} required={edit?true:false} readOnly={!edit?true:false} />
         </div>
         <span className="profile__error profile-email-input-error error">Что-то пошло не так...</span>
+        <span className="profile__error profile-api-error api-error">{updateUser?"Профиль успешно обновлён":"При обновлении профиля произошла ошибка"}</span>
         {edit&&<>
-          <span className="profile__error profile-api-error api-error">{updateUser?"Профиль успешно обновлён":"При обновлении профиля произошла ошибка"}</span>
           <button aria-label="кнопка сохранить" type="submit" className="profile__submit-button submit-button button">Сохранить</button>
         </>}
       </form>
