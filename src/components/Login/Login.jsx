@@ -11,7 +11,6 @@ function Login({onLogin}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(values);
     onLogin(values);
   }
 
