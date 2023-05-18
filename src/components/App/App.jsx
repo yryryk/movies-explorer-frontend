@@ -139,7 +139,7 @@ function App() {
       mainApi.setToken(result.token);
       navigate("/movies");
       setIsLoggedIn(true);
-      setCurrentUser((state) => ({ ...state, email: result.email, name: result.name }));
+      setCurrentUser((state) => ({ ...state, email: result.email, name: result.name, _id: result._id }));
 
     } catch (err) {
       console.log(err);
