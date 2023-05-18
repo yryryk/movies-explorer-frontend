@@ -1,6 +1,7 @@
 import './Login.css';
 import AuthorizationForm from '../AuthorizationForm/AuthorizationForm';
 import { useForm } from '../../hooks/useForm';
+import { useEffect } from 'react';
 
 function Login({onLogin}) {
   const {values, handleChange, setValues} = useForm({
@@ -10,12 +11,18 @@ function Login({onLogin}) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(values);
     onLogin(values);
-    setValues({
-      email: '',
-      password: '',
-    });
   }
+
+  useEffect(()=>{
+    return () => {
+      setValues({
+        name: '',
+        email: '',
+      });
+    }
+  },[setValues])
 
   return (
     <main className="login">

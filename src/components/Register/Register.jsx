@@ -1,6 +1,7 @@
 import './Register.css';
 import AuthorizationForm from '../AuthorizationForm/AuthorizationForm';
 import { useForm } from '../../hooks/useForm';
+import { useEffect } from 'react';
 
 function Register({onRegister}) {
   const {values, handleChange, setValues} = useForm({
@@ -12,12 +13,17 @@ function Register({onRegister}) {
   function handleSubmit(e) {
     e.preventDefault();
     onRegister(values);
-    setValues({
-      name: '',
-      email: '',
-      password: '',
-    });
   }
+
+  useEffect(()=>{
+    return () => {
+      setValues({
+        name: '',
+        email: '',
+        password: '',
+      });
+    }
+  },[setValues])
 
   return (
     <main className="register">
