@@ -77,7 +77,7 @@ function Movies(props) {
       {moviesCardList.length
         ?filteredMoviesCardList.length
           ?<MoviesCardList {...props} filteredMoviesCardList={filteredMoviesCardList} />
-          :<p className="movies__message">По вашему запросу ничего не найдено</p>
+          :<p className="movies__message">{searchValue?"По вашему запросу ничего не найдено":"Здесь могли бы быть фильмы - используйте поиск и они появятся."}</p>
         :!saved
           ?<Preloader />
           :<p className="movies__message">Здесь ещё ничего нет</p>
