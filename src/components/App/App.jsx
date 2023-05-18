@@ -1,5 +1,5 @@
 import './App.css';
-import {Route, Routes, useNavigate} from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -234,8 +234,8 @@ function App() {
           <Route path="/movies" element={!waitingLoad&&<ProtectedRoute component={Movies} loggedIn={isLoggedIn} key={0} saved={false} moviesCardList={moviesCardList} handleSelectMovies={handleSelectMovies} />}/>
           <Route path="/saved-movies" element={!waitingLoad&&<ProtectedRoute component={Movies} loggedIn={isLoggedIn} key={1} saved={true} moviesCardList={selectedMoviesCardList} handleSelectMovies={handleSelectMovies} />}/>
           <Route path="/profile" element={!waitingLoad&&<ProtectedRoute component={Profile} loggedIn={isLoggedIn} onSignOut={onSignOut} onUpdateUser={handleUpdateUser} />}/>
-          <Route path="/signin" element={<Login onLogin={handleLogin} />}/>
-          <Route path="/signup" element={<Register onRegister={handleRegister} />}/>
+          {!isLoggedIn&&<Route path="/signin" element={<Login onLogin={handleLogin} />}/>}
+          {!isLoggedIn&&<Route path="/signup" element={<Register onRegister={handleRegister} />}/>}
           <Route path="*" element={<NotFound />}/>
         </Routes>
 
