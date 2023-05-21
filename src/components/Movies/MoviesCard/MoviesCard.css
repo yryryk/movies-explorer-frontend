@@ -3,12 +3,13 @@
   border-radius: 10px;
   background-color: #FDFDFD;
   box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
 .movies-card__image {
   width: 100%;
   aspect-ratio: 270/151;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 
