@@ -1,4 +1,5 @@
 # movies-explorer-frontend
+#### Статус: не завершён
 
 Фронтенд сервиса Movies.
 
@@ -30,3 +31,11 @@ https://api.movies.tovchennikov.nomoredomains.monster/
 ### [Ссылка на репозиторий бэкенда](https://github.com/yryryk/movies-explorer-api)
 
 ### [Макет Figma](https://disk.yandex.ru/d/oDmAQfZKIzHH2w)
+
+## Планируемые доработки 
+
+1. Переделать метод добавления фильмов в избранные. Использующийся сейчас крайне не рационален.
+
+2. Добавить сообщения для ошибок API.
+
+3. Добавить файл для констант.
